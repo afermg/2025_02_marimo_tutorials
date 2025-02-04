@@ -1,0 +1,363 @@
+* Lessons learned reinventing the Python notebook
+:PROPERTIES:
+:CUSTOM_ID: lessons-learned-reinventing-the-python-notebook
+:CLASS: list-paragraph
+:END:
+** Making notebooks reproducible, maintainable, and reusable
+ We designed marimo to make notebooks reproducible (Jupyter notebooks suffer from a [[https://c.vialoops.com/CL0/https:%2F%2Fleomurta.github.io%2Fpapers%2Fpimentel2019a.pdf/1/0100019458aa7568-c98c247b-55f4-4ee1-b9ad-ed9fa0f6a9cf-000000/fnC8kE00GxhLRL8cyOPn2wOUIj-3RLgajtmjL5szyyU=387][reproducibility crisis]]), maintainable like regular Python files, and reusable as web apps or Python scripts. marimo blends the best parts of interactive computing with the rigor and reusability of traditional software. In fact, marimo was originally developed in collaboration with Stanford scientists, who felt limited by Jupyter's lack of reproducibility and interactivity.
+** Keeping code and outputs in sync
+ The biggest difference between marimo notebooks and Jupyter notebooks is that marimo understands the relationships between code cells. Run one cell, and [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Freactivity%2F/1/0100019458aa7568-c98c247b-55f4-4ee1-b9ad-ed9fa0f6a9cf-000000/iER2in7fiLcH6LCw7fuVXLMbwPrTldGOn4l_TlxKHqM=387][marimo automatically runs dependent cells]] like a spreadsheet, keeping code and outputs in sync and enabling rapid data exploration. This is called "reactive execution", and is a core feature of [[https://c.vialoops.com/CL0/https:%2F%2Fwww.nature.com%2Farticles%2Fd41586-021-01174-w/1/0100019458aa7568-c98c247b-55f4-4ee1-b9ad-ed9fa0f6a9cf-000000/RwSPTmcHqde1b-_6j_owq08w0cxh7fAEr6OqWLlDLpU=387][next-generation notebooks for other languages]] as well. marimo lets you disable reactive execution for [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fexpensive_notebooks%2F/1/0100019458aa7568-c98c247b-55f4-4ee1-b9ad-ed9fa0f6a9cf-000000/8UY34dA4BkabsvVbxZSOZ7pClFv3TgTFKIGUkWv8JgA=387][expensive notebooks]], while still giving guarantees about state. If you're coming from Jupyter, make sure to check out our [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fcoming_from%2Fjupyter%2F/1/0100019458aa7568-c98c247b-55f4-4ee1-b9ad-ed9fa0f6a9cf-000000/68Q5C9dOM6n0CiL5-ZOsL4zWsjBG5sBGZv162F0BTcc=387][guide on adapting to marimo]].
+** Explore data and build apps with interactive elements
+ Another big difference between marimo and Jupyter is that marimo comes bundled with [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Finteractivity/1/0100019458aa7568-c98c247b-55f4-4ee1-b9ad-ed9fa0f6a9cf-000000/3f5lELx0110zVIfyo8-1xPpAQ9lLRaggPsd7Bj3gICg=387][interactive widgets]] like sliders, dropdown menus, and tables that make it easy to see how changing variables change results. Combined with reactive execution, this also lets you make and share interactive apps!
+**  Lessons we learned along the way
+ marimo is fundamentally a reinvention of the Python notebook as a reproducible, interactive, and reusable Python program, instead of an error-prone JSON scratchpad. Today, marimo is used by scientists and engineers across the world, and has been developed by over 70 contributors. Read more about the lessons we learned reinventing the Python notebook [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fblog%2Flessons-learned/1/0100019458aa7568-c98c247b-55f4-4ee1-b9ad-ed9fa0f6a9cf-000000/nDnf9AMo3b-I1n3863Ipx_oQfDm1Lo7ckBqSBg-29b4=387][at our blog]].
+* reusable notebooks: explore data, build apps, run scripts
+:CUSTOM_ID: reusable-notebooks-explore-data-build-apps-run-scripts
+ Unlike Jupyter notebooks, which are usually scratchpads, marimo notebooks are reusable software artifacts. You can marimo notebooks in three ways:
+ 1.
+    #+begin_quote
+    marimo edit notebook.py: explore data and run experiments, like a traditional notebook
+    #+end_quote
+ 2. [@2]
+    marimo run notebook.py: run your notebook as an [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fapps%2F/1/01000194681d8e34-37d53fab-5764-401c-81ab-bda36f1706a5-000000/kbrqMTKKG5UUhdTOqHcr8m-PSwofWqYYbE5PTv3EnA0=388][interactive web app]]
+ 3. [@3]
+    python notebook.py: execute your notebook as a [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fscripts%2F/1/01000194681d8e34-37d53fab-5764-401c-81ab-bda36f1706a5-000000/dI08_6o2oOR4kl0uF60vrrnirC0zWyZ-gfpca52Uq0M=388][Python script]]
+* Manipulate data with SQL and interactive dataframes
+:CUSTOM_ID: manipulate-data-with-sql-and-interactive-dataframes
+ [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo/2/010001947790a61d-5f820db3-4ab9-4f35-ba0e-c4b0dc43442e-000000/5GmoYkbGCv16YBqzPD6EXRMgsrgFzm2VJVLDOmL-EFk=388][marimo]] is designed specifically for people who work with data:
+ 1.
+    #+begin_quote
+    [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fworking_with_data%2Fsql%2F/1/010001947790a61d-5f820db3-4ab9-4f35-ba0e-c4b0dc43442e-000000/dRQFoZG8vw6rL_i6N6ZTBrZ6NO8TLL59TNeVmWmv_MA=388][Query dataframes and databases with SQL]] --- marimo is the only open-source Python notebook with first-class SQL support.
+    #+end_quote
+  [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image1.png]]
+ 2. Search, filter, and sort dataframes using marimo's [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fworking_with_data%2Fdataframes%2F/1/010001947790a61d-5f820db3-4ab9-4f35-ba0e-c4b0dc43442e-000000/12bWphpckSkfqXLo5u56SXB1y_rMNj4pCxuvk19Vgb4=388][fast and intuitive dataframe renderer]].
+ 3. Select data in a plot, [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fworking_with_data%2Fplotting%2F/1/010001947790a61d-5f820db3-4ab9-4f35-ba0e-c4b0dc43442e-000000/xAGQAv06ye-Tmt5SOdWCtq9lzzLHOYIkj5C9tOTVJbY=388][get it back as a dataframe]] in Python --- no callbacks required.
+* Notebooks as code
+:CUSTOM_ID: notebooks-as-code
+ Hi! This email is part of our "10 days of marimo" series, which includes tips and tricks to help you get started with [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo/1/010001948703be24-8eadc2de-205e-4a2b-80c5-ea666beca5a1-000000/oocUv_T1_BLyEKeTlzwWmVt1WOekYEq2tV1v9XW0mUU=388][marimo]].
+ Unlike traditional notebooks, marimo notebooks are stored as pure Python files, not JSON. This has several benefits:
+ -
+   #+begin_quote
+   Version notebooks with Git, with small code changes yielding small diffs
+   #+end_quote
+   Execute notebooks as [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fscripts%2F/1/010001948703be24-8eadc2de-205e-4a2b-80c5-ea666beca5a1-000000/TSEGooKypKFaxRSwlOsftb8jE18fAiGmOPz-Z3s75-I=388][Python scripts]]
+   [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Ftesting%2F/1/010001948703be24-8eadc2de-205e-4a2b-80c5-ea666beca5a1-000000/3bitPhWhm1rUzdZ3bwUv6pbuKnyeJos6Do0mjYx_hFY=388][Test notebooks]] with pytest or doctests
+   [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fblog%2Fsandboxed-notebooks/1/010001948703be24-8eadc2de-205e-4a2b-80c5-ea666beca5a1-000000/8SWO4zmdlxhnpoSavkofIQjNzvOdY_PNmJkuNhPf1W8=388][Serialize package requirements]] in notebook files
+   [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fapi%2Fcell%2F/1/010001948703be24-8eadc2de-205e-4a2b-80c5-ea666beca5a1-000000/3J0lXGVNLIvl_E9eThmJD-KEsX74gyeWo7J_PjGuR2Y=388][Reuse cells]] across other notebooks
+   [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fapi%2Fapp%2F/1/010001948703be24-8eadc2de-205e-4a2b-80c5-ea666beca5a1-000000/ZrI24SHrf5rEPQ4ijOs4Ze3Fqdr1zAhxIQH9KwAPv_o=388][Embed notebooks]] in other notebooks
+ Sometimes, however, it's helpful to store notebook outputs alongside your code --- for these cases, marimo lets you automatically snapshot outputs to an auxiliary __marimo__ directory using the notebook settings menu.
+* A modern editor with first-class AI support
+:CUSTOM_ID: a-modern-editor-with-first-class-ai-support
+ The marimo editor has many modern features, including first-class support for AI-assisted coding:
+ 1.
+    #+begin_quote
+    Enable copilots like [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23github-copilot/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/DjdqoXAZzxI324ssvaO4EVwovuKIzHO-o3zcrEpfd2I=389][GitHub Copilot]] or [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23codeium-copilot/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/xOIGwFrKb9lGarhK0YRTYY8JDHT0qrR3zA8Juc0gEVc=389][Codeium]]
+    #+end_quote
+ 2. [@2]
+    Enable copilots like [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23github-copilot/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/DjdqoXAZzxI324ssvaO4EVwovuKIzHO-o3zcrEpfd2I=389][GitHub Copilot]] or [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23codeium-copilot/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/xOIGwFrKb9lGarhK0YRTYY8JDHT0qrR3zA8Juc0gEVc=389][Codeium]]
+    Generate entire cells using an [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23generate-code-with-our-ai-assistant/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/egwsRQHp_rFYs-2J4thOA5vaNd8sAOLhpF_DuOQxsRw=389][AI assistant]] that knows your dataframe schemas (bring your own keys!)
+ The editor's panels also let you explore your file tree (and preview file contents), view variable values, see dataframe schemas, view documentation as you type, and more.
+* The marimo gallery
+:CUSTOM_ID: the-marimo-gallery
+ Looking for inspiration on what to make with marimo? Check out [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fgallery/1/01000194a5e9ee8e-f25c9786-a2fd-46d6-8b45-66f46cb63f61-000000/L77lu8o0YGDFMwo3epv-WL7993r_zozIlEtIF6616Ko=389][our gallery]]!
+  [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image2.png]]
+ Our gallery showcases exemplary notebooks from our community --- when we started working on marimo, one of our primary goals was to make a tool that empowered others to explore and present data in new ways. That's why it's so gratifying and inspiring to see all the awesome things that you all are making.
+ Some of our favorite examples include a tutorial on [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fp%2F@marimo%2Fmicrograd/1/01000194a5e9ee8e-f25c9786-a2fd-46d6-8b45-66f46cb63f61-000000/_8uHviZX7ApEuUerP5hqXYQtHK0wxMPdkhEA154NdtQ=389][training neural networks]], an interactive tutorial on computational methods for [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2F@public%2Fsignal-decomposition/1/01000194a5e9ee8e-f25c9786-a2fd-46d6-8b45-66f46cb63f61-000000/LZk_33-0eqXwQ3yDyzQLScr_pfP8egkr6lB2wjF-vTg=389][energy research]], and an illustration of the [[https://c.vialoops.com/CL0/https:%2F%2Fhuggingface.co%2Fspaces%2Fmarimo-team%2Fseam-carving/1/01000194a5e9ee8e-f25c9786-a2fd-46d6-8b45-66f46cb63f61-000000/YM3xSDTMiE0MycBCmcQlqKzhqdT5P0jzKdo3yMeDC-0=389][seam carving algorithm]] based on an example by 3Blue1Brown.
+ You're reading the tenth marimo newsletter.
+ Since the last newsletter was mailed a month ago, we've had [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo%2Freleases/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/JqerxQiGdCsbRW_1f8IxP3w5qKQaqYjYxhX3KUS1V78=390][10 new releases]] and many new features, including multi-column notebooks, an execution history panel, and more. We'll dig into these features in this newsletter, but first, some updates!
+ ** [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image3.png]] Why Stanford scientists needed a new Python notebook
+ :PROPERTIES:
+ :CUSTOM_ID: why-stanford-scientists-needed-a-new-python-notebook
+ :END:
+ Before marimo was open source, it was [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fblog%2Fslac-marimo/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/_rYXQAsH9KXN7XuUM5vVUqoVKQTSpa6bvnXjnJhwbQc=390][originally developed]] with input from computational scientists at Stanford's SLAC National Accelerator Labratory. They had historically used Jupyter, but felt they needed a new kind of Python notebook for their iterative, data-heavy coding work --- one that was reproducible and reusable by default. With only [[https://c.vialoops.com/CL0/https:%2F%2Fleomurta.github.io%2Fpapers%2Fpimentel2019a.pdf/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/_zETZ5y_8Mw1ZenjvFFVHhF6ZXLjCo-9fojZPeFdXEk=390][4% of notebooks on GitHub reproducing]], Jupyter wasn't cutting it.
+ Together with scientists Bennet Meyers and David Chassin, we've published a blog that dives into [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fblog%2Fslac-marimo/2/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/N3oq_KhQuuDTZoAzN-wPiFHVyEcsi9Fks-GoGhlqy4A=390][why Stanford scientists needed a new Python notebook]], and how they've used it in their lab for interactive science communication, reproducible research, and education.
+ ** [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image4.png]] Open GitHub notebooks in our online playground
+ :CUSTOM_ID: open-github-notebooks-in-our-online-playground
+ You can now open any notebook hosted on GitHub --- marimo or Jupyter --- in an interactive playground that has access to the repo's files. This makes it easy to share notebooks with data. To get started, just prepend “[[http://marimo.app/][marimo.app]]” to any Python notebook on GitHub:
+ -
+   #+begin_quote
+   Jupyter: [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.app%2Fhttps:%2F%2Fgithub.com%2Fjakevdp%2FPythonDataScienceHandbook%2Fblob%2Fmaster%2Fnotebooks%2F02.08-Sorting.ipynb/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/MIRaxx1DS18wYEP3J-V5R4vVq01oY_y_uYze41J1iaw=390][https://marimo.app/github.com/jakevdp/PythonData...]]
+   #+end_quote
+   marimo: [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.app%2Fhttps:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo%2Fblob%2F658be291810ecc51a3a83386ca493d37ee6bdc58%2Fmarimo%2F_tutorials%2Fintro.py/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/EuJFt13ePFcubi1OteF7u-0aYe1WaP4B2IKrIeqcPGw=390][https://marimo.app/github.com/marimo-team/marimo/...]]
+ We even have [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fpublishing%2Fplayground%2F%23open-notebooks-hosted-on-github/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/7UEG5YUVtCJlt4mdHozNuS2laxx8gTDU9md4c1x1W-o=390][a bookmarklet]] that makes this truly 1-click.
+ The usual caveats with our playground apply: most but not all packages are supported, and notebooks only have access to at most 2GB of RAM, due to limitations with WebAssembly. Learn more about how we implemented this at our [[https://c.vialoops.com/CL0/https:%2F%2Fnews.ycombinator.com%2Fitem%3Fid=42700852/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/H9CuPCpbPhChd3D8phb6BRqUq_5oiKmdBDlh-qy4L30=390][Show HN]], and [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fpublishing%2Fplayground%2F%23open-notebooks-hosted-on-github/2/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/d_fc7UIHwxBqAWLCPXQTCTqgl8uTOZd36hr5yjwJXmo=390][read the docs]] for a usage guide and the bookmarklet.
+ ** [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image5.png]] Templates
+ :CUSTOM_ID: templates
+ We're building template repositories and notebooks to help you get started with marimo! Copy and modify them to kickstart your own projects.
+   [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Forgs%2Fmarimo-team%2Frepositories%3Fq=template%253Atrue%2Barchived%253Afalse/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/THW9ViEcWgEO0W533KxMkjMp_8xGn2stzNGrJ8voBRM=390][Templates repos]] for working with [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo-uv-starter-template/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/lFXHvCNiCHqdOBcFseJvvp5ob74__oB5YkwK2PtsKy0=390][uv]] and [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo-gh-pages-template/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/aiev82NyUbrDkyyT_oRJ939Tg0d-3uOR3NmevYTD9Yg=390][publishing to GitHub Pages]].
+   [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fexamples/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/dGgVNK5D0_ixHReVDIWCVLgDSS1rAzGL516v_acVge0=390][Template notebooks]] including interactive clustering and building custom labeling tools.
+ Expect more templates soon. Please open issues or file pull requests to contribute your own!
+ ** [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image6.png]] More news
+ :CUSTOM_ID: more-news
+   [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image7.png]] Our roadmap. Last newsletter, we shared a sketch of our primary goals on the road to marimo 1.0, which all drive toward building a unified toolchain for working with data, at any scale and wherever it is, and communicating results. We've [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fblog%2Fv1-roadmap/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/O-KkAmcaPLVemyZ3kD71m_-GGzac1R7Ifm0EBVMC_xw=390][published the roadmap]] on our blog; please [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Ffeedback/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/Bp81xlNIVVy8azmcZrjpiQFynDuU4thwG7sTT5mZLuA=390][provide feedback]] if you have any!
+   [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image8.png]] A docs revamp. We've modernized and reorganized [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo%2F/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/DvmVmGr1anyYeM_Bu6fSAcBfuda-rsk5olejMfUWEHU=390][our docs]], switching from Sphinx to MkDocs. Check out our new guides on [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fpublishing%2F/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/Gdz_AQy1hrou1EPN-do2qcZ0svMThU5OTe_AxSRFi8A=390][sharing marimo notebooks on the web]] and making notebooks [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fpackage_reproducibility%2F/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/gTLNtn73_-VOJaM2hMmo1Jaqxvqx0Qly5aadhSOAwCg=390][reproducible down to the packages]].
+   [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image9.png]] The marimo YouTube channel. marimo now has a [[https://c.vialoops.com/CL0/https:%2F%2Fwww.youtube.com%2F@marimo-team/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/wKKl7PJqXpK0Bp3ErNgYyvf1BvE5ScDkg8vVvWwMhOk=390][YouTube channel]], and we're cooking up some videos! Subscribe to get notified when our first video is published.
+ ** [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image10.png]]️ New features
+ :CUSTOM_ID: new-features
+ *** Edit notebooks in multiple columns
+ :CUSTOM_ID: edit-notebooks-in-multiple-columns
+ You can now layout notebooks in multiple columns, letting you use your screen real estate to the fullest ([[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Foverview%2F%23editor-widths/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/ZaRmeikZR78UGvHCLuCu85XA_p-GgNtu4rTX9qJBV70=390][docs]])!
+  [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image11.png]]
+ For example, this feature (which can be enabled through the notebook settings) lets you organize your functions, classes, and constants in one column, and your analyses and experiments in another column. Check out [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fexamples%2Ftree%2Fmain%2Fexplore_high_dimensional_data/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/XppBwM_n5wQ5ntjYwKSrAzoECFHjsZP8rFQ2FMBKHQM=390][this notebook]] on dimensionality reduction and clustering for an example.
+ This feature was contributed by [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fwasimsandhu/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/C52OtYwbgGQI_UaygY_UWd8mgb5xQ3yBx0BlgB6kuFU=390][@WasimSandhu]].
+ *** Use your own editor
+ :PROPERTIES:
+ :CUSTOM_ID: use-your-own-editor
+ :END:
+ We now have initial support for editing marimo notebooks [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fwatching%2F/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/uyB6u1BtVZGp_gcdXwbEONDzCmQ1FlMgFXnRsudvLx4=390][using your editor of choice]], and streaming results back to the browser. We still have work to do to enable code completion and language servers in external editors; if you'd like to help, please reach out on [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fdiscord%3Fref=newsletter-10/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/E8aDukicR-kTyARRoLRZeE13z-mlYqY4JgS_r17Y0QE=390][Discord]] or GitHub.
+ This feature was contributed by [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmscolnick/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/a9OXXz3JgGeFegPPoMY2pvBqJsP7AP-uC3KeDkAK-UM=390][@mscolnick]].
+ *** Cell execution history
+ :CUSTOM_ID: cell-execution-history
+ The marimo editor has a new panel that drills down into your notebook's [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo%2Freleases%2Ftag%2F0.10.16/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/UEf34Jt0mxKDoFrlF3gwgkI6ubIl_6Jbl8k7UBeN7QE=390][execution history]]. Use it to track slow cells and visualize execution order.
+ This feature was contributed by [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2FLight2Dark/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/HtKpavqstQL6xO6LQ81no7beMqw671vweEOOwYhJmg8=390][@Light2Dark]].
+ *** Test notebooks with pytest
+ :CUSTOM_ID: test-notebooks-with-pytest
+ You can now [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Ftesting%2F/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/MQ4IMBTqEDHwdjvJWo0xgVSPTH1kSOQbAOnUN6yFDfk=390][test notebooks with pytest]] --- the works because marimo notebooks are just Python files. To get started, in a notebook test_notebook.py, name cells that should run as tests as test_*, then run
+ pytest test_notebook.py
+ This is a new feature, and the API is evolving (such as for referencing fixtures). If you have suggestions, please [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo%2Fissues/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/V0iAOYZdHnOvoewbbG7V7lcw6RZwNNtVjJha7qIoM0A=390][open an issue]] in the marimo repo.
+ This feature was contributed by [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fdmadisetti/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/NOHFgygLD3NDFk0wjgzwVl2tjvoJ8IP2CxrO3QkINLk=390][@dmadisetti]].
+ ** [[file:vertopal_fcae9789c157449aa6a911caefc055d1/media/image12.png]] Community
+ :CUSTOM_ID: community
+ We have over 89 contributors pushing code to marimo, up from 70 last month, and over 1k marimonauts hanging out with us on [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fdiscord/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/94GXo2rI4i3RSiIhxWEspryrXj4FENfHnrsEfYciooc=390][Discord]] --- come chat! We've crossed 9.8k stars on GitHub, up from 8k last month!
+ *** Community Roundup
+ :CUSTOM_ID: community-roundup
+* Transform your repository of notebooks into a collection of interactive data apps.
+   In this blog, we’ll explore how to serve your collection of Python notebooks as data apps directly from a GitHub repository using marimo. This is a great demonstration of a few of marimo’s unique features:
+
+    File format: marimo notebooks are just pure Python files (.py), ensuring compatibility with modern Python tools like uv, docker, and version control systems. No need for dealing with code buried inside JSON.
+    ASGI-compatibility: marimo’s server can mount notebooks as web apps on any ASGI server, making it easy to deploy data apps.
+    Self-contained: No need for complex configuration files or environment setup - everything is contained in a single Python file.
+
+How It Works
+
+We’ll use marimo’s ASGI server to serve notebooks from a GitHub repository. The server reads notebooks and creates individual marimo apps for each one, all while keeping the code simple and maintainable.
+Step 1: Import the Essentials
+
+First, import the necessary libraries:
+
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["fastapi", "marimo", "starlette", "requests", "pydantic", "jinja2"]
+# ///
+import os
+import tempfile
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+import marimo
+import requests
+from pathlib import Path
+
+We’re using PEP 723 to declare our dependencies inline, instead of a separate requirements.txt. Doing so allows us to run this script directly with uv without needing a separate requirements file. This is also what powers marimo’s sandboxed notebooks.
+Step 2: Download Notebooks from GitHub
+
+Next, download the Python files from the GitHub repository:
+
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "marimo-team/marimo")
+ROOT_DIR = os.environ.get("GITHUB_ROOT_DIR", "examples/ui")
+ 
+def download_github_files(repo: str, path: str = "") -> list[tuple[str, str]]:
+    """Download files from GitHub repo, returns list of (file_path, content)"""
+    api_url = f"https://api.github.com/repos/{repo}/contents/{path}"
+    response = requests.get(api_url)
+    response.raise_for_status()
+ 
+    files: list[tuple[str, str]] = []
+    for item in response.json():
+        if item["type"] == "file" and item["name"].endswith(".py"):
+            content_response = requests.get(item["download_url"])
+            files.append((Path(path) / item["name"], content_response.text))
+        elif item["type"] == "dir":
+            files.extend(download_github_files(repo, str(Path(path) / item["name"])))
+    return files
+ 
+files = download_github_files(GITHUB_REPO, ROOT_DIR)
+
+This function recursively retrieves all Python files from the specified GitHub repository. Since marimo notebooks are just Python files, we don’t need any special conversion or post-processing.
+Step 3: Create a marimo Server
+
+Create a marimo server with each notebook as an app under their respective paths:
+
+server = marimo.create_asgi_app()
+tmp_dir = tempfile.TemporaryDirectory()
+app_names: list[str] = []
+ 
+for file_path, content in files:
+    app_name = Path(file_path).stem
+    local_path = Path(tmp_dir.name) / file_path
+ 
+    # Create directories if they don't exist
+    local_path.parent.mkdir(parents=True, exist_ok=True)
+ 
+    # Write file content
+    local_path.write_text(content)
+ 
+    # Add to marimo server
+    print(f"Adding app: {app_name}")
+    server = server.with_app(path=f"/{app_name}", root=str(local_path))
+    app_names.append(app_name)
+
+marimo’s ASGI server makes it easy to serve multiple notebooks under different paths. Each notebook becomes its own interactive data app, complete with UI elements and reactivity.
+Step 4: Set Up the FastAPI App
+
+Set up a FastAPI app to serve as the entry point:
+
+app = FastAPI()
+templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
+ 
+@app.get("/")
+async def home(request: Request):
+    return templates.TemplateResponse(
+        "home.html", {"request": request, "app_names": app_names}
+    )
+ 
+# Mount the marimo server
+app.mount("/", server.build())
+
+And finally, this block runs the server:
+
+if __name__ == "__main__":
+    import uvicorn
+ 
+    uvicorn.run(app, host="0.0.0.0", port=7860, log_level="info")
+
+Our template directory has a single file: templates/home.html, which lists all the apps with a clean UI. You can customize this to your liking. Or even inline it in the script, giving you a single file to run and share.
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {% for app_name in app_names %}
+        <a href="/{{ app_name }}" class="block">
+          <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4">
+            <h3 class="text-lg font-semibold text-blue-600 hover:text-blue-800">{{ app_name }}</h3>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
+
+Now, it can be easily run with:
+
+uv run --no-project main.py
+
+Bonus: Deploy with Docker
+
+For deployment, you can package your application with Docker:
+
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+ 
+# Change these to the repo and path you want to serve
+ENV GITHUB_REPO=marimo-team/marimo
+ENV GITHUB_ROOT_DIR=examples/ui
+ 
+COPY main.py .
+COPY templates/ templates/
+ 
+CMD ["uv", "run", "--no-project", "main.py"]
+
+You can find an example of this setup in our HuggingFace Space.
+Conclusion
+
+This guide demonstrates how to build a single-file Python application that serves marimo notebooks from a GitHub repository. Should you use this in production? Probably not. However, this is pretty close; some considerations to make this production-ready:
+
+    Downloading the GitHub files in a build process, not on the fly.
+    Installing the dependencies in the Docker build, not the Docker command (e.g. uv run ...).
+    Implementing authentication (marimo has some built-in support).
+
+** Publish interactive marimo notebooks on the web (for free!)
+:CUSTOM_ID: publish-interactive-marimo-notebooks-on-the-web-for-free
+ marimo notebooks are easy to share and [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fpublishing%2F/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/GDDgwYr3OcibM4DL74tQlHoef8MhyqQhTAj0n8PasPw=390][publish]]. Thanks to [[https://c.vialoops.com/CL0/https:%2F%2Fblog.pyodide.org%2Fposts%2Fmarimo%2F/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/7GfKLvz64WZxMK7iJb3Or7uSRos3Ky2mNjkw34F7OLA=390][Pyodide]] and WebAssembly, marimo notebooks can run entirely in the browser, without the complexity or cost of expensive backend servers. You can create and share [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fwasm%2F/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/4nIgXaEUbVQV1uvW1412hQ7JhWG4iE_atDNq9eqZRxM=390][WebAssembly notebooks]] for free in three ways:
+ 1.
+    #+begin_quote
+    Our online playground, for one-off notebooks: [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.new/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/uuSkboy5EvE7DV1iR6Xp5a07hpZAyWxFIb8c4KfG_04=390][https://marimo.new]].
+    #+end_quote
+ 2. [@2]
+    Our Community Cloud, for saving collections of notebooks: [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fdashboard/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/LIJOU33v94wreemkGo_Hnp0YTMTsI6TAIQpCgD1fU6Q=390][https://marimo.io/dashboard]].
+ 3. [@3]
+    By [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fexporting%2F/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/ybuPoUX7PeG-0niFF-3nzzA58VwmMRi4fn_V4BiJu4M=390][exporting to HTML-WASM]] and hosting on [[https://c.vialoops.com/CL0/https:%2F%2Fgithub.com%2Fmarimo-team%2Fmarimo-gh-pages-template/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/EMz0GSojIrTQJhrutNuHyBfpUA1EGmxQQow4kdrfYdw=390][GitHub Pages]] (or on your own server).
+ If you're a library developer, these features also let you embed marimo notebooks in project documentation, letting embed code examples in our API docs and tutorials. (We do this in [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fapi%2Finputs%2Fslider%2F/1/01000194b55d06f4-ad37ef5b-4009-4d6b-9ff3-b53d32aa49ef-000000/oFvJkHADv6c2EIT4I9yF5pgq9Ydk1-MK-rbUJtBjcto=390][our own docs]]!)
+** Making notebooks reproducible down to the packages
+:CUSTOM_ID: making-notebooks-reproducible-down-to-the-packages
+ One of marimo's goals is to make notebooks reproducible, [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Fpackage_reproducibility%2F/1/01000194c4d01f40-e0776ae6-4c5a-4161-89a2-f4a150d3fb8e-000000/NntL4HKOsYpIcxQABx11K_RSa5NZut1_i9sq0svpCeA=390][down to the packages]] used in them. To that end, marimo lets you create notebooks that have their package requirements serialized into them as a top-level comment. Given a notebook with inlined requirements, marimo can run it in an isolated virtual environment with a single command:
+ ```
+ marimo edit --sandbox notebook.py
+ This creates a fresh virtual environment, or sandbox, and installs the dependencies before opening the notebook. When in sandbox mode, marimo's opt-in [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fpackage_management.html/1/01000194c4d01f40-e0776ae6-4c5a-4161-89a2-f4a150d3fb8e-000000/U_i95nsgOVJ-hYcy-RKT6R44qTjq6R5_4V548tFyBKM=390][package management features]] track imports and automatically add them to your notebook's inlined requirements.
+ This feature is powered by the uv package manager, and is only possible because marimo notebooks are stored as Python (not JSON!). Learn more [[https://c.vialoops.com/CL0/https:%2F%2Fmarimo.io%2Fblog%2Fsandboxed-notebooks/1/01000194c4d01f40-e0776ae6-4c5a-4161-89a2-f4a150d3fb8e-000000/7lGVsQrjOw2y9-nK0sqlxw8jgA3Qj1wvN1f37d-dbQI=390][at our blog]].
+https://old.reddit.com/r/MachineLearning/comments/191rdwq/p_i_built_marimo_an_opensource_reactive_python/**Reproducibility**
+In Jupyter notebooks, the code you see doesn't necessarily match the
+outputs on the page or the program state. Some cases in which this can
+happen: (1) if you delete a cell, its variables stay in memory, which
+other cells may still reference (2) users can execute cells in arbitrary
+order. This leads to widespread reproducibility issues. One study
+analyzed 1 million Jupyter notebooks and found that 36% of them didn't
+reproduce
+([[https://blog.jetbrains.com/datalore/2020/12/17/we-downloaded-10-000-000-jupyter-notebooks-from-github-this-is-what-we-learned/#consistency-of-notebooks]]).
+In contrast, marimo guarantees that your code, outputs, and program
+state are all synchronized, making your notebooks more reproducible by
+eliminating hidden state. marimo achieves this by intelligently
+analyzing your code and understanding the relationships between cells,
+and automatically re-running cells as needed (sort of like a spreadsheet
+but better).
+
+*** *Maintainability**
+marimo notebooks are stored as pure Python programs (.py files). This
+lets you version them with git; in contrast, Jupyter notebooks are
+stored as JSON and require extra steps to sensibly version.
+*** *Interactivity**
+marimo notebooks come with UI elements that are automatically
+synchronized with Python (like sliders, dropdowns) ... scrub a slider
+and all cells that reference it are automatically re-run with the new
+value. This is very difficult to get working in Jupyter notebooks.
+*** *Reusability**
+marimo notebooks can be executed as Python scripts from the command-line
+(since they're stored as .py files). In contrast, this requires extra
+steps/effort to do for Jupyter, such as copying and pasting the code out
+or using external frameworks. In the future, we'll also let you import
+symbols (functions, classes) defined in a marimo notebook into other
+Python programs/notebooks, something you can't really do with Jupyter.
+*** *Shareability**
+Every marimo notebook can double as an interactive web app, complete
+with UI elements, which you can serve using our CLI. This isn't possible
+in Jupyter without substantial extra effort.
+You might also want to check out Joel Grus' talk on notebooks. We solve
+many of the problems he highlights:
+[[https://www.youtube.com/watch?v=7jipeifxb6u&t=1s][https://www.youtube.com/watch?v=7jiPeIFXb6U&t=1s]]
+* HN post
+Hi HN! We're excited to share marimo, an open-source reactive notebook
+for Python [1]. marimo aims to solve well-known problems with
+traditional notebooks [2]: marimo notebooks are reproducible (no hidden
+state), git-friendly (stored as Python files), executable as Python
+scripts, and deployable as web apps.
+ Hi HN! We're excited to share marimo, an open-source reactive notebook for Python [1]. marimo aims to solve well-known problems with traditional notebooks [2]: marimo notebooks are reproducible (no hidden state), git-friendly (stored as Python files), executable as Python scripts, and deployable as web apps.
+ GitHub repo: [[https://github.com/marimo-team/marimo]]
+ In marimo, a notebook's code, outputs, and program state are always consistent. Run a cell and marimo reacts by automatically running the cells that reference its declared variables. Delete a cell and marimo scrubs its variables from program memory, eliminating hidden state. Our reactive runtime is based on static analysis, so it's performant. If you're worried about accidentally triggering expensive computations, you can disable specific cells from auto-running.
+ marimo comes with UI elements like sliders, a dataframe transformer, and interactive plots that are automatically synchronized with Python [3]. Interact with an element and the cells that use it are automatically re-run with its latest value. Reactivity makes these UI elements more useful and ergonomic than Jupyter's ipywidgets.
+ Every marimo notebook can be run as a script from the command line, with cells executed in a topologically sorted order, or served as an interactive web app, using the marimo CLI.
+ We're a team of just two developers. We chose to develop marimo because we believe that the Python community deserves a better programming environment to do research and communicate it; experiment with code and share it; and learn computational science and teach it. We've seen lots of research start in Jupyter notebooks (much of my own has), only to fail to reproduce; lots of promising prototypes built that were never made real; and lots of tutorials written that failed to engage students.
+ marimo has been developed with the close input of scientists and engineers, and with inspiration from many tools, including Pluto.jl and streamlit. We open-sourced it recently because we feel it's ready for broader use. Please try it out (pip install marimo && marimo tutorial intro). We'd appreciate your feedback!
+ [1] [[https://github.com/marimo-team/marimo]]
+ [2] [[https://docs.marimo.io/faq.html#faq-problems]]
+ [3] [[https://docs.marimo.io/api/inputs/index.html]]
+- Apache 2 license
+- 11 months ago
+** Limitations for WASM
+- 2 GB memory
+- Single threaded
+- Must use pandas or duckdb, not polars
+** Plugins + tool combos
+uv
+MotherDuck
+** Links and cool things
+   A side-by-side comparison of Jupyter and marimo in [[https://c.vialoops.com/CL0/https:%2F%2Fwww.heise.de%2Fratgeber%2FJupyter-Alternative-Mit-Marimo-schnell-und-einfach-Python-Apps-erstellen-10195153.html/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/Lawj2oIQ616Qaos3clNv26hQRAxLPsCPjScoF8JKVyU=390][Heise Online]]
+   Why marimo gives Yonatan “[[https://c.vialoops.com/CL0/https:%2F%2Fmedium.com%2F@flyingjony%2Fcan-marimo-replace-jupyter-notebooks-fb8c7210ad35/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/yEwHgUe2Gn9LmrRrNKlrxjfkKxAUqlMzaSoVqkzRiHc=390][a cozy feeling]]” (hint: reproducibility!)
+   Run marimo [[https://c.vialoops.com/CL0/https:%2F%2Fwww.run.house%2Fblog%2Fmarimo-runhouse-reproducible-ml-python-notebooks/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/WClmzORk0pwZU97_gLG55kbMFAimCETeCj_okRxg1vo=390][on GPUs seamlessly]] with Runhouse
+   Supercharge marimo SQL [[https://c.vialoops.com/CL0/https:%2F%2Fmotherduck.com%2Fecosystem%2Fmarimo%2F/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/ljxPrWNdX4Ttae8UNQdAhl3WOpE4j6bQ8WIym1d8BAU=390][with Motherduck]]!
+   BugBytes shows how to [[https://c.vialoops.com/CL0/https:%2F%2Fwww.youtube.com%2Fwatch%3Fv=XP4fvOsXLAM/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/24mm06b0UE83Bcr3yzP_ScRN_dozw5Cu9A8zC4GKsaA=390][query Polars dataframes with SQL]]
+   NeuralNine teaches you how to [[https://c.vialoops.com/CL0/https:%2F%2Fwww.youtube.com%2Fwatch%3Fv=rrK24YBQjIs/1/01000194b3392ee8-217361e8-cd9c-4439-865c-9d7084094dad-000000/1a6roJ3DYjM7gJ4IyoWqu10BKrMdXv3YCk3teSvNRbc=390][go from notebook to app]] in his video on marimo
