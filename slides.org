@@ -146,4 +146,4 @@ or install
 - marimo [[https://marimo.io/gallery][gallery]]
 - Blog [[https://marimo.io/blog][entries]]
 - Design [[https://marimo.io/blog/lessons-learned][lessons]] of building marimo
-- [[https://docs.marimo.io/guides/coming_from/][Guides]] to transition guides: Streamlit, Jupytext, Papermill
+- [[https://docs.marimo.io/guides/coming_from/][Guides]] to transition: Streamlit, Jupytext, Papermill
