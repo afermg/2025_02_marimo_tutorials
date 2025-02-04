@@ -1,0 +1,138 @@
+#+TITLE: Introduction to marimo
+#+OPTIONS: ^:nil H:2 num:t toc:1
+#+DATE: 2024/06/04
+#+Author: Alán F. Muñoz
+#+LaTeX_CLASS: beamer
+#+BEAMER_THEME: metropolis
+#+BEAMER_FRAME_LEVEL: 3
+# #+LATEX_HEADER: \usepackage{ragged2e}
+# #+latex_header: \usepackage{xcolor}
+# #+LATEX_HEADER: \usepackage{minted}
+
+* Introduction
+** The case against Jupyter notebooks
+- Only [[https://leomurta.github.io/papers/pimentel2019a.pdf][4%]] of notebooks are reproducible.
+- Hidden state
+- Hard to parse diffs with standard tools
+- It does not scale as notebooks grow in size and number
+  
+** Similar existing tools
+- Streamlit: General-purpose apps
+- Papermill: Parameterize Jupyter notebooks
+- gradio: ML apps
+  
+** Enter marimo
+Officially released at the start of 2024.
+
+Developed at National Accelerator Lab. Limited by Jupyter, they needed a reproducible and reusable notebook for iterative, data-heavy code work.
+
+Similar to:
+- [[https://observablehq.com/][Observable]] (Javascript)
+- [[https://github.com/fonsp/Pluto.jl][Pluto.jl]] (Julia)
+- [[https://github.com/livebook-dev/livebook][Livebook]] (Elixir)
+  
+* Main features
+** What exactly is marimo?
+#+begin_quote
+marimo is fundamentally a reinvention of the Python notebook as a reproducible, interactive, and reusable Python program, instead of an error-prone JSON scratchpad."
+#+end_quote
+\right -marimo dev team
+** How is it different from Jupyter Nobtebooks?
+- Consistent state
+- Built-in interactivity
+- Pure Python programs
+  
+** Reproducibility: 
+- Serialize package requirements in-notebook (uv)
+- Reuse cells
+- The notebook's state is updated upon changes
+  
+** Maintainability
+- Small changes -> small diffs
+- Test notebooks with pytest or doctests
+  
+** Interactivity
+[[https://docs.marimo.io/_static/readme-ui.webm][Interactive]] sync with the Python kernel:
+- no callbacks
+- no observers
+- no manually re-running cells.
+
+** Reusability
+- Reuse notebooks from command line
+- (WIP): Import symbols (functions/classes) into python programs/notebooks
+  
+** Shareability
+- Share notebooks without paying for compute
+- [[https://docs.marimo.io/guides/publishing/playground/#embedding-an-existing-notebook][Embed]] notebooks in websites
+  
+** How can you use it?
+- Fetch images as you explore and process profiles
+- Low-effort data annotators
+- Explore data and statistics before committing to code an analysis
+- Create a chatbot
+  
+* QoL features
+** General features
+- Built-in data exploration
+- Control cells' reactive execution
+- Seamless alternation between notebook and app
+  
+** First-class SQL support
+- [[https://docs.marimo.io/guides/working_with_data/sql/][Mix]] and match SQL and Python, always coming back to python DataFrames.
+- [[https://docs.marimo.io/guides/working_with_data/dataframes/][Out-of-the-box]] interactive DataFrames
+  
+** Run it on your browser, not through your browser!
+- Run github notebooks with one click
+  - Prepend marimo.app to any github notebook
+  - The WASM app can be hosted on Github Pages
+    
+** Bring your own editor
+- Edit the file and monitor changes on the app/notebook.
+  [[https://docs.marimo.io/guides/editor_features/watching/#marimo-edit-watch][=marimo edit --watch=]]
+- Integration of autocompletion and code-checking is undergoing.
+    
+** AI Assistants
+- Enable copilots like [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23github-copilot/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/DjdqoXAZzxI324ssvaO4EVwovuKIzHO-o3zcrEpfd2I=389][GitHub Copilot]] or [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23codeium-copilot/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/xOIGwFrKb9lGarhK0YRTYY8JDHT0qrR3zA8Juc0gEVc=389][Codeium]]
+- Generate entire cells using an [[https://c.vialoops.com/CL0/https:%2F%2Fdocs.marimo.io%2Fguides%2Feditor_features%2Fai_completion%2F%23generate-code-with-our-ai-assistant/1/010001949676d651-71cf2cff-b50b-4332-9b49-f85145fac730-000000/egwsRQHp_rFYs-2J4thOA5vaNd8sAOLhpF_DuOQxsRw=389][AI assistant]] that knows your dataframe schemas 
+  A new [[https://github.com/marimo-team/expd][framework]] for computational experiments
+  
+** The downsides
+- New and non-standard
+- (Soft) Lock on their editor
+- Development loop outside their interface is clunky
+- Unlike =Jupyter=, the kernel is not accessible in isolation of the interface
+    
+** Goals of marimo 1.0
+#+begin_quote
+    1. Rapid data manipulation with Python and SQL
+    2. Excellent developer experience in the marimo editor
+    3. Excellent developer experience working with notebook files
+    4. Seamless embedding of notebooks and application on web
+    5. Working with data at any scale
+    6. Enterprise-readiness
+#+end_quote
+
+* Wrapping up
+** Marimo vs Jupyter
+- .py files vs JSON
+- Widgets are synced with the Python kernel, unlike ipywidgets
+- There is no hidden state
+
+** Take-home messages
+** Where to start?
+
+Try online on [[https://marimo.new][marimo.new]]
+
+or install 
+#+begin_src shell
+  uvx/pip install marimo
+  marimo tutorial ui
+#+end_src
+
+** References and resources
+- Slides + Additional notes
+  [[https://github.com/afermg/2025_02_marimo_tutorials][github.com/afermg/2025_02_marimo_tutorials]]
+- marimo [[https://marimo.io/gallery][gallery]]
+- Blog [[https://marimo.io/blog][entries]]
+- Design [[https://marimo.io/blog/lessons-learned][lessons]] of building marimo
+- [[https://docs.marimo.io/guides/coming_from/][Guides]] to transition from: Streamlit, Jupytext, Papermill
