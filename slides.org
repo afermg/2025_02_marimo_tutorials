@@ -1,6 +1,6 @@
 #+TITLE: Introduction to marimo
 #+OPTIONS: ^:nil H:2 num:t toc:1
-#+DATE: 2024/06/04
+#+DATE: 2024/02/04
 #+Author: Alán F. Muñoz
 #+LaTeX_CLASS: beamer
 #+BEAMER_THEME: metropolis
@@ -14,17 +14,17 @@
 - Only [[https://leomurta.github.io/papers/pimentel2019a.pdf][4%]] of notebooks are reproducible.
 - Hidden state
 - Hard to parse diffs with standard tools
-- It does not scale as notebooks grow in size and number
+- They do not scale upon growth in size and number
   
 ** Similar existing tools
-- Streamlit: General-purpose apps
-- Papermill: Parameterize Jupyter notebooks
-- gradio: ML apps
+- [[https://streamlit.io/][Streamlit]]: General-purpose apps
+- [[https://papermill.readthedocs.io/en/latest/][Papermill]]: Parameterize Jupyter notebooks
+- [[https://github.com/gradio-app/gradio][gradio]]: Apps with an ML focus
   
 ** Enter marimo
 Officially released at the start of 2024.
 
-Developed at National Accelerator Lab. Limited by Jupyter, they needed a reproducible and reusable notebook for iterative, data-heavy code work.
+Developed at National Accelerator Lab. In need of a reproducible and reusable notebook for iterative, data-heavy code work.
 
 Similar to:
 - [[https://observablehq.com/][Observable]] (Javascript)
@@ -34,18 +34,20 @@ Similar to:
 * Main features
 ** What exactly is marimo?
 #+begin_quote
-marimo is fundamentally a reinvention of the Python notebook as a reproducible, interactive, and reusable Python program, instead of an error-prone JSON scratchpad."
+"marimo is fundamentally a reinvention of the Python notebook as a reproducible, interactive, and reusable Python program, instead of an error-prone JSON scratchpad."
 #+end_quote
-\right -marimo dev team
-** How is it different from Jupyter Nobtebooks?
-- Consistent state
-- Built-in interactivity
-- Pure Python programs
+
+marimo dev team
+
+** How is it different from Jupyter Notebooks?
+- [[https://docs.marimo.io/_static/reactive.webm][Consistent state]]
+- [[https://docs.marimo.io/_static/readme-ui.webm][Built-in interactivity]]
+- [[https://github.com/marimo-team/marimo/blob/main/examples/misc/compound_interest.py][Pure Python programs]]
   
 ** Reproducibility: 
-- Serialize package requirements in-notebook (uv)
-- Reuse cells
-- The notebook's state is updated upon changes
+- Serialize package requirements in-notebook (sandboxed notebooks)
+- The notebook's input and output state are the same
+- Reuse cells within a notebook
   
 ** Maintainability
 - Small changes -> small diffs
@@ -66,14 +68,14 @@ marimo is fundamentally a reinvention of the Python notebook as a reproducible, 
 - [[https://docs.marimo.io/guides/publishing/playground/#embedding-an-existing-notebook][Embed]] notebooks in websites
   
 ** How can you use it?
-- Fetch images as you explore and process profiles
-- Low-effort data annotators
+- [[https://docs.marimo.io/_static/embedding.webm][Fetch images as you explore and process profiles]]
+- [[https://docs.marimo.io/_static/docs-model-comparison.webm][Low-effort data annotators]]
 - Explore data and statistics before committing to code an analysis
-- Create a chatbot
+- Create a chatbot to interact with code 
   
 * QoL features
 ** General features
-- Built-in data exploration
+- [[https://docs.marimo.io/api/inputs/data_explorer/][Built-in]] data exploration tools
 - Control cells' reactive execution
 - Seamless alternation between notebook and app
   
@@ -82,7 +84,7 @@ marimo is fundamentally a reinvention of the Python notebook as a reproducible, 
 - [[https://docs.marimo.io/guides/working_with_data/dataframes/][Out-of-the-box]] interactive DataFrames
   
 ** Run it on your browser, not through your browser!
-- Run github notebooks with one click
+- [[https://github.com/marimo-team/marimo/blob/main/examples/ui/arrays_and_dicts.py][Run]] github notebooks with one click
   - Prepend marimo.app to any github notebook
   - The WASM app can be hosted on Github Pages
     
@@ -101,7 +103,12 @@ marimo is fundamentally a reinvention of the Python notebook as a reproducible, 
 - (Soft) Lock on their editor
 - Development loop outside their interface is clunky
 - Unlike =Jupyter=, the kernel is not accessible in isolation of the interface
-    
+  
+** WASM limitations
+A specific [[https://pyodide.org/en/stable/usage/packages-in-pyodide.html][list]] of python libraries work under WASM
+- Most numeric python, but not polars
+- Maximum 2GB of memory
+  
 ** Goals of marimo 1.0
 #+begin_quote
     1. Rapid data manipulation with Python and SQL
@@ -112,15 +119,19 @@ marimo is fundamentally a reinvention of the Python notebook as a reproducible, 
     6. Enterprise-readiness
 #+end_quote
 
-* Wrapping up
+* Final notes
 ** Marimo vs Jupyter
 - .py files vs JSON
 - Widgets are synced with the Python kernel, unlike ipywidgets
 - There is no hidden state
 
-** Take-home messages
+** Take-home messages. Marimo can:
+- Accelerate data exploration through native interactive elements
+- Increase reproducibility of results
+- Reduce the cost and complexity of deploying infrastructure
+- Make scientific computing accessible
+  
 ** Where to start?
-
 Try online on [[https://marimo.new][marimo.new]]
 
 or install 
@@ -135,4 +146,4 @@ or install
 - marimo [[https://marimo.io/gallery][gallery]]
 - Blog [[https://marimo.io/blog][entries]]
 - Design [[https://marimo.io/blog/lessons-learned][lessons]] of building marimo
-- [[https://docs.marimo.io/guides/coming_from/][Guides]] to transition from: Streamlit, Jupytext, Papermill
+- [[https://docs.marimo.io/guides/coming_from/][Guides]] to transition guides: Streamlit, Jupytext, Papermill
