@@ -26,7 +26,7 @@
             in mkShell {
               packages = [
                 emacs
-                texliveFull
+                texliveMedium
                 ]
                 ++ libList;
                 shellHook = ''
