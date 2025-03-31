@@ -1,6 +1,6 @@
 #+TITLE: Introduction to marimo
 #+OPTIONS: ^:nil H:2 num:t toc:1
-#+DATE: 2024/02/04
+#+DATE: 2025/02/04
 #+Author: Alán F. Muñoz
 #+LaTeX_CLASS: beamer
 #+BEAMER_THEME: metropolis
